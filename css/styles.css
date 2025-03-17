@@ -1,47 +1,45 @@
 body {
-    font-family: "Cormorant Garamond", serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f7ebec; 
-    color: #333;
-  }
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+  font-family: "Cormorant Garamond", serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background: #FDF0D5;  /* Cream */
+  color: #003755; /* Dark Blue */
 }
 
+/* Navigation Bar */
 nav {
-    background: #333;
-    padding: 10px;
+  background: #620000;  /* Dark Red */
+  padding: 10px;
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 nav ul li {
-    display: inline;
-    margin: 0 15px;
+  display: inline;
+  margin: 0 15px;
 }
 
 nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
 }
 
 nav ul li a:hover {
-    text-decoration: underline;
+  color: #669BBC; /* Light Blue */
+  text-decoration: underline;
 }
 
+/* Section Styling */
 .content {
-    display: none;
-    padding: 20px;
+  display: none;
+  padding: 20px;
 }
 
 .active {
-    display: block;
+  display: block;
 }
