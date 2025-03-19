@@ -6,6 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Student Planner</title>
   <link rel="stylesheet" href="css/styles.css">
+  <script src="js/script.js" defer></script>
+
+
 </head>
 <body>
   <!-- Header (Navigation) -->
@@ -19,11 +22,6 @@
           <li><a href="#" data-section="notes">Notes</a></li>
       </ul>
   </nav>
-
-  <section id="home" class="content active">
-      <h1>Welcome to Student Spanner</h1>
-      <p>Your all-in-one student planner.</p>
-  </section>
   
   <section id="task" class="content">
       <h1>Task Manager</h1>
@@ -49,8 +47,26 @@
 
   <!-- Main Content Area -->
   <main>
-    <h1>Welcome to Student Planner!</h1>
-  
+    <section id="home" class="content active">
+      <h1>Welcome to Student Spanner</h1>
+      <button onclick="updateText()">Click to Update</button>
+      <p id="dynamic-text">This text will change!</p>
+  </section>
+
+  <section id="tasks" class="content">
+      <h1>Tasks</h1>
+      <form id="taskForm" onsubmit="return validateForm()">
+          <input type="text" id="taskName" placeholder="Enter Task">
+          <input type="email" id="email" placeholder="Enter Email">
+          <button type="submit">Submit</button>
+      </form>
+      <p id="form-message"></p>
+  </section>
+
+  <section id="planner">
+    <h2>My Student Planner</h2>
+    <div id="calendar"></div>
+</section>
   </main>
 
   <!-- Footer (Copyright/Social Links) -->

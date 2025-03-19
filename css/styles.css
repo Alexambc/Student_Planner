@@ -1,15 +1,16 @@
+/* General Styles */
 body {
   font-family: "Cormorant Garamond", serif;
   margin: 0;
   padding: 0;
   text-align: center;
-  background: #FDF0D5;  /* Cream */
-  color: #003755; /* Dark Blue */
+  background: #FDF0D5;
+  color: #003049;
 }
 
 /* Navigation Bar */
 nav {
-  background: #620000;  /* Dark Red */
+  background: #780000;
   padding: 10px;
 }
 
@@ -30,7 +31,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  color: #669BBC; /* Light Blue */
+  color: #669BBC;
   text-decoration: underline;
 }
 
@@ -42,4 +43,100 @@ nav ul li a:hover {
 
 .active {
   display: block;
+}
+
+/* Responsive Layout */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Grid Layout for Sections */
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* 📱 Mobile: Screens smaller than 600px */
+@media (max-width: 600px) {
+  nav ul {
+      flex-direction: column;
+      text-align: center;
+  }
+
+  nav ul li {
+      margin: 10px 0;
+  }
+
+  .grid-layout {
+      grid-template-columns: 1fr;
+  }
+}
+
+/* 📊 Tablet: Screens between 600px - 900px */
+@media (min-width: 601px) and (max-width: 900px) {
+  .grid-layout {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 💻 Desktop: Screens larger than 900px */
+@media (min-width: 901px) {
+  .grid-layout {
+      grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  width: 90%;
+  max-width: 800px;
+  margin: auto;
+  padding: 10px;
+}
+
+.day {
+  border: 2px solid #003049;
+  background: #FDF0D5;
+  padding: 15px;
+  text-align: center;
+  min-height: 80px;
+  position: relative;
+  cursor: pointer;
+}
+
+.day:hover {
+  background: #669BBC;
+}
+
+.event {
+  font-size: 14px;
+  background: #C1121F;
+  color: white;
+  padding: 2px;
+  margin-top: 5px;
+  display: block;
+  border-radius: 3px;
+}
+
+#event-form {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border: 2px solid #003049;
+  text-align: center;
+}
+
+input, button {
+  margin: 5px;
+  padding: 8px;
 }
