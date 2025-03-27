@@ -1,19 +1,86 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const links = document.querySelectorAll("nav ul li a");
-    const sections = document.querySelectorAll(".content");
+// DOM Elements
+document.addEventListener('DOMContentLoaded', () => {
+    // Navigation
+    const navLinks = document.querySelectorAll('nav a');
+    const contentSections = document.querySelectorAll('.content');
+    
+    // Theme Toggle
+    const themeToggle = document.createElement('button');
+    themeToggle.classList.add('theme-toggle');
+    themeToggle.textContent = '🌙';
+    document.body.appendChild(themeToggle);
 
-    links.forEach(link => {
-        link.addEventListener("click", function (event) {
-            event.preventDefault();
-            const sectionId = this.getAttribute("data-section");
+    // SPA Navigation
+    function navigateToSection(sectionId) {
+        contentSections.forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+            targetSection.classList.add('active');
+        }
+    }
 
-            sections.forEach(section => {
-                section.classList.remove("active");
-            });
-
-            document.getElementById(sectionId).classList.add("active");
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const sectionId = link.getAttribute('data-section');
+            navigateToSection(sectionId);
+            
+            // Update active state in navigation
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
         });
     });
+
+    // Dark Mode Toggle
+    let isDarkMode = localStorage.getItem('darkMode') === 'true';
+    
+    function toggleDarkMode() {
+        document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+        themeToggle.textContent = isDarkMode ? '☀️' : '🌙';
+        localStorage.setItem('darkMode', isDarkMode);
+    }
+
+    // Initialize dark mode from localStorage
+    if (isDarkMode) {
+        toggleDarkMode();
+    }
+
+    themeToggle.addEventListener('click', () => {
+        isDarkMode = !isDarkMode;
+        toggleDarkMode();
+    });
+
+    // Form Validation
+    const taskForm = document.getElementById('taskForm');
+    if (taskForm) {
+        taskForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const taskName = document.getElementById('taskName').value;
+            const email = document.getElementById('email').value;
+            const messageElement = document.getElementById('form-message');
+
+            // Simple validation
+            if (!taskName.trim()) {
+                messageElement.textContent = 'Please enter a task name';
+                return;
+            }
+
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                messageElement.textContent = 'Please enter a valid email address';
+                return;
+            }
+
+            // If validation passes
+            messageElement.textContent = 'Task added successfully!';
+            taskForm.reset();
+        });
+    }
+
+    // Initialize home section as active
+    navigateToSection('home');
 });
 
 // Function to show sections dynamically

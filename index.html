@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Student Planner</title>
+  <title>MyStudentPlanner</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="js/script.js" defer></script>
 
 
@@ -14,14 +17,19 @@
   <!-- Header (Navigation) -->
   <header>
     <nav>
-      <ul>
-          <li><a href="#" data-section="home">Home</a></li>
-          <li><a href="#" data-section="task">Task</a></li>
+      <div class="nav-container">
+        <div class="logo">
+          <span class="logo-text">MyStudentPlanner</span>
+        </div>
+        <ul>
+          <li><a href="#" data-section="home" class="active">Home</a></li>
+          <li><a href="#" data-section="tasks">Tasks</a></li>
           <li><a href="#" data-section="exams">Exams</a></li>
           <li><a href="#" data-section="schedule">Schedule</a></li>
           <li><a href="#" data-section="notes">Notes</a></li>
-      </ul>
-  </nav>
+        </ul>
+      </div>
+    </nav>
   
   <section id="task" class="content">
       <h1>Task Manager</h1>
@@ -48,30 +56,122 @@
   <!-- Main Content Area -->
   <main>
     <section id="home" class="content active">
-      <h1>Welcome to Student Spanner</h1>
-      <button onclick="updateText()">Click to Update</button>
-      <p id="dynamic-text">This text will change!</p>
+      <div class="hero-section">
+        <h1>Welcome to MyStudentPlanner</h1>
+        <p class="subtitle">Your all-in-one solution for organizing your academic life</p>
+      </div>
+      <div class="features-grid">
+          <div class="feature-card">
+              <div class="icon">📝</div>
+              <h3>Tasks</h3>
+              <p>Manage your assignments and to-dos with ease</p>
+          </div>
+          <div class="feature-card">
+              <div class="icon">📚</div>
+              <h3>Exams</h3>
+              <p>Track your upcoming exams and stay prepared</p>
+          </div>
+          <div class="feature-card">
+              <div class="icon">📅</div>
+              <h3>Schedule</h3>
+              <p>Plan your daily classes efficiently</p>
+          </div>
+          <div class="feature-card">
+              <div class="icon">📓</div>
+              <h3>Notes</h3>
+              <p>Keep your study materials organized and accessible</p>
+          </div>
+      </div>
   </section>
 
   <section id="tasks" class="content">
-      <h1>Tasks</h1>
-      <form id="taskForm" onsubmit="return validateForm()">
-          <input type="text" id="taskName" placeholder="Enter Task">
-          <input type="email" id="email" placeholder="Enter Email">
-          <button type="submit">Submit</button>
+      <div class="section-header">
+          <h2>Task Manager</h2>
+          <button class="add-button">+ New Task</button>
+      </div>
+      <form id="taskForm" class="modern-form">
+          <div class="form-group">
+              <input type="text" id="taskName" placeholder="Task name">
+          </div>
+          <div class="form-group">
+              <input type="date" id="taskDate" required>
+          </div>
+          <div class="form-group">
+              <textarea id="taskDescription" placeholder="Task description"></textarea>
+          </div>
+          <div class="form-group">
+              <select id="taskPriority">
+                  <option value="low">Low Priority</option>
+                  <option value="medium">Medium Priority</option>
+                  <option value="high">High Priority</option>
+              </select>
+          </div>
+          <button type="submit" class="submit-button">Add Task</button>
       </form>
-      <p id="form-message"></p>
+      <div id="taskList" class="task-grid"></div>
   </section>
 
-  <section id="planner">
-    <h2>My Student Planner</h2>
-    <div id="calendar"></div>
-</section>
+  <section id="exams" class="content">
+      <div class="section-header">
+          <h2>Exam Schedule</h2>
+          <button class="add-button">+ Add Exam</button>
+      </div>
+      <div class="exam-calendar">
+          <div class="calendar-header">
+              <button class="calendar-nav">◀</button>
+              <h3>March 2024</h3>
+              <button class="calendar-nav">▶</button>
+          </div>
+          <div class="calendar-grid">
+              <!-- Calendar will be populated by JavaScript -->
+          </div>
+      </div>
+  </section>
+  
+  <section id="schedule" class="content">
+      <div class="section-header">
+          <h2>Class Schedule</h2>
+          <button class="add-button">+ Add Class</button>
+      </div>
+      <div class="schedule-container">
+          <div class="schedule-sidebar">
+              <h3>Your Classes</h3>
+              <ul class="class-list">
+                  <!-- Class list will be populated by JavaScript -->
+              </ul>
+          </div>
+          <div class="schedule-grid">
+              <!-- Schedule grid will be populated by JavaScript -->
+          </div>
+      </div>
+  </section>
+
+  <section id="notes" class="content">
+      <div class="section-header">
+          <h2>Study Notes</h2>
+          <button class="add-button">+ New Note</button>
+      </div>
+      <div class="notes-container">
+          <div class="notes-sidebar">
+              <div class="search-box">
+                  <input type="text" placeholder="Search notes...">
+              </div>
+              <div id="notesList">
+                  <!-- Notes list will be populated by JavaScript -->
+              </div>
+          </div>
+          <div class="notes-editor">
+              <input type="text" id="noteTitle" placeholder="Note Title">
+              <textarea id="noteContent" placeholder="Start typing your notes here..."></textarea>
+          </div>
+      </div>
+  </section>
+
   </main>
 
   <!-- Footer (Copyright/Social Links) -->
   <footer>
-    <p>&copy; 2025 Student Planner | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a></p>
+    <p>&copy; 2024 MyStudentPlanner - Organize your academic life efficiently</p>
   </footer>
 </body>
 </html>
