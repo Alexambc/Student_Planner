@@ -1,15 +1,27 @@
 // DOM Elements
 document.addEventListener('DOMContentLoaded', () => {
+    // Dark Mode Toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    const htmlElement = document.documentElement;
+    let isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+    // Initialize theme
+    if (isDarkMode) {
+        htmlElement.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = '☀️';
+    }
+
+    themeToggle.addEventListener('click', () => {
+        isDarkMode = !isDarkMode;
+        htmlElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+        themeToggle.textContent = isDarkMode ? '☀️' : '🌙';
+        localStorage.setItem('darkMode', isDarkMode);
+    });
+
     // Navigation
     const navLinks = document.querySelectorAll('nav a');
     const contentSections = document.querySelectorAll('.content');
     
-    // Theme Toggle
-    const themeToggle = document.createElement('button');
-    themeToggle.classList.add('theme-toggle');
-    themeToggle.textContent = '🌙';
-    document.body.appendChild(themeToggle);
-
     // SPA Navigation
     function navigateToSection(sectionId) {
         contentSections.forEach(section => {
@@ -20,6 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (targetSection) {
             targetSection.classList.add('active');
         }
+
+        // Update active state in navigation
+        navLinks.forEach(link => link.classList.remove('active'));
+        document.querySelector(`nav a[data-section="${sectionId}"]`)?.classList.add('active');
     }
 
     navLinks.forEach(link => {
@@ -27,30 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const sectionId = link.getAttribute('data-section');
             navigateToSection(sectionId);
-            
-            // Update active state in navigation
-            navLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
         });
-    });
-
-    // Dark Mode Toggle
-    let isDarkMode = localStorage.getItem('darkMode') === 'true';
-    
-    function toggleDarkMode() {
-        document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-        themeToggle.textContent = isDarkMode ? '☀️' : '🌙';
-        localStorage.setItem('darkMode', isDarkMode);
-    }
-
-    // Initialize dark mode from localStorage
-    if (isDarkMode) {
-        toggleDarkMode();
-    }
-
-    themeToggle.addEventListener('click', () => {
-        isDarkMode = !isDarkMode;
-        toggleDarkMode();
     });
 
     // Form Validation
