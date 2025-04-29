@@ -10,10 +10,64 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="js/script.js" defer></script>
-
-
 </head>
 <body>
+  <!-- Sign In Modal -->
+  <div id="signInModal" class="modal">
+    <div class="modal-content sign-in-content">
+      <div class="modal-header">
+        <h2>Welcome to MyStudentPlanner</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      <form id="signInForm" class="auth-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="submit-button">Sign In</button>
+          <button type="button" class="switch-form-button" id="showSignUp">Create Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Sign Up Modal -->
+  <div id="signUpModal" class="modal">
+    <div class="modal-content sign-in-content">
+      <div class="modal-header">
+        <h2>Create Account</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      <form id="signUpForm" class="auth-form">
+        <div class="form-group">
+          <label for="signupName">Full Name</label>
+          <input type="text" id="signupName" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+          <label for="signupEmail">Email</label>
+          <input type="email" id="signupEmail" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" placeholder="Create a password" required>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="submit-button">Sign Up</button>
+          <button type="button" class="switch-form-button" id="showSignIn">Already have an account?</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Header (Navigation) -->
   <header>
     <nav>
@@ -27,25 +81,77 @@
           <li><a href="#" data-section="exams">Exams</a></li>
           <li><a href="#" data-section="schedule">Schedule</a></li>
           <li><a href="#" data-section="notes">Notes</a></li>
+          <li><a href="#" id="signInBtn">Sign In</a></li>
         </ul>
       </div>
     </nav>
     <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
   </header>
   
-  <section id="task" class="content">
-      <h1>Task Manager</h1>
-      <p>Keep track of your assignments and to-dos here.</p>
-  </section>
-
   <section id="exams" class="content">
       <h1>Exams</h1>
       <p>View your upcoming exams and prepare accordingly.</p>
   </section>
   
   <section id="schedule" class="content">
-      <h1>Schedule</h1>
-      <p>Plan out your study and class schedule.</p>
+      <div class="section-header">
+          <h2>Calendar</h2>
+          <button class="add-button" id="addEventBtn">+ Add Event</button>
+      </div>
+      
+      <div class="calendar-container">
+          <div class="calendar-header">
+              <button id="prevMonth" class="calendar-nav">◀</button>
+              <h3 id="currentMonth">March 2024</h3>
+              <button id="nextMonth" class="calendar-nav">▶</button>
+          </div>
+          
+          <div class="calendar-weekdays">
+              <div>Sun</div>
+              <div>Mon</div>
+              <div>Tue</div>
+              <div>Wed</div>
+              <div>Thu</div>
+              <div>Fri</div>
+              <div>Sat</div>
+          </div>
+          
+          <div id="calendarGrid" class="calendar-grid">
+              <!-- Calendar days will be populated by JavaScript -->
+          </div>
+      </div>
+      
+      <!-- Event Modal -->
+      <div id="eventModal" class="modal">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h3>Add Event</h3>
+                  <button class="close-modal">&times;</button>
+              </div>
+              <form id="eventForm">
+                  <div class="form-group">
+                      <label for="eventTitle">Event Title</label>
+                      <input type="text" id="eventTitle" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="eventDate">Date</label>
+                      <input type="date" id="eventDate" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="eventTime">Time</label>
+                      <input type="time" id="eventTime" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="eventDescription">Description</label>
+                      <textarea id="eventDescription"></textarea>
+                  </div>
+                  <div class="form-actions">
+                      <button type="button" class="cancel-button" id="cancelEvent">Cancel</button>
+                      <button type="submit" class="submit-button">Add Event</button>
+                  </div>
+              </form>
+          </div>
+      </div>
   </section>
 
   <section id="notes" class="content">
@@ -60,25 +166,25 @@
     <section id="home" class="content active">
       <div class="hero-section">
         <h1>Welcome to MyStudentPlanner</h1>
-        <p class="subtitle">Your all-in-one solution for organizing your academic life</p>
+        <p class="subtitle">Your way to organize your academic life</p>
       </div>
       <div class="features-grid">
-          <div class="feature-card">
+          <div class="feature-card" data-section="tasks">
               <div class="icon">📝</div>
               <h3>Tasks</h3>
               <p>Manage your assignments and to-dos with ease</p>
           </div>
-          <div class="feature-card">
+          <div class="feature-card" data-section="exams">
               <div class="icon">📚</div>
               <h3>Exams</h3>
               <p>Track your upcoming exams and stay prepared</p>
           </div>
-          <div class="feature-card">
+          <div class="feature-card" data-section="schedule">
               <div class="icon">📅</div>
               <h3>Schedule</h3>
               <p>Plan your daily classes efficiently</p>
           </div>
-          <div class="feature-card">
+          <div class="feature-card" data-section="notes">
               <div class="icon">📓</div>
               <h3>Notes</h3>
               <p>Keep your study materials organized and accessible</p>
@@ -89,27 +195,80 @@
   <section id="tasks" class="content">
       <div class="section-header">
           <h2>Task Manager</h2>
-          <button class="add-button">+ New Task</button>
+          <button class="add-button" id="showTaskForm">+ New Task</button>
       </div>
-      <form id="taskForm" class="modern-form">
-          <div class="form-group">
-              <input type="text" id="taskName" placeholder="Task name">
+      
+      <div class="task-form-container" id="taskFormContainer">
+          <form id="taskForm" class="modern-form">
+              <div class="form-header">
+                  <h3>Create New Task</h3>
+                  <button type="button" class="close-button" id="closeTaskForm">×</button>
+              </div>
+              
+              <div class="form-group">
+                  <label for="taskName">Task Title</label>
+                  <input type="text" id="taskName" placeholder="Enter task name" required>
+              </div>
+              
+              <div class="form-row">
+                  <div class="form-group">
+                      <label for="taskDate">Due Date</label>
+                      <input type="date" id="taskDate" required>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="taskPriority">Priority</label>
+                      <select id="taskPriority">
+                          <option value="low">Low Priority</option>
+                          <option value="medium">Medium Priority</option>
+                          <option value="high">High Priority</option>
+                      </select>
+                  </div>
+              </div>
+              
+              <div class="form-group">
+                  <label for="taskDescription">Description</label>
+                  <textarea id="taskDescription" placeholder="Add details about your task..."></textarea>
+              </div>
+              
+              <div class="form-group">
+                  <label for="taskCategory">Category</label>
+                  <select id="taskCategory">
+                      <option value="assignment">Assignment</option>
+                      <option value="project">Project</option>
+                      <option value="study">Study</option>
+                      <option value="other">Other</option>
+                  </select>
+              </div>
+              
+              <div class="form-actions">
+                  <button type="button" class="cancel-button" id="cancelTask">Cancel</button>
+                  <button type="submit" class="submit-button">Add Task</button>
+              </div>
+          </form>
+      </div>
+      
+      <div class="task-filters">
+          <div class="search-box">
+              <input type="text" id="taskSearch" placeholder="Search tasks...">
           </div>
-          <div class="form-group">
-              <input type="date" id="taskDate" required>
-          </div>
-          <div class="form-group">
-              <textarea id="taskDescription" placeholder="Task description"></textarea>
-          </div>
-          <div class="form-group">
-              <select id="taskPriority">
-                  <option value="low">Low Priority</option>
-                  <option value="medium">Medium Priority</option>
+          <div class="filter-options">
+              <select id="filterPriority">
+                  <option value="all">All Priorities</option>
                   <option value="high">High Priority</option>
+                  <option value="medium">Medium Priority</option>
+                  <option value="low">Low Priority</option>
+              </select>
+              <select id="filterCategory">
+                  <option value="all">All Categories</option>
+                  <option value="assignment">Assignments</option>
+                  <option value="project">Projects</option>
+                  <option value="study">Study</option>
+                  <option value="other">Other</option>
               </select>
           </div>
-          <button type="submit" class="submit-button">Add Task</button>
-      </form>
+      </div>
+      
       <div id="taskList" class="task-grid"></div>
   </section>
 
