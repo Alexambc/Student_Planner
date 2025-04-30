@@ -136,6 +136,66 @@ nav a.active {
     opacity: 1;
 }
 
+/* Responsive Navigation */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    nav {
+        padding: var(--spacing-sm);
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .logo-text {
+        margin-bottom: var(--spacing-sm);
+    }
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+@media (max-width: 640px) {
+    .menu-toggle {
+        display: block;
+    }
+    
+    nav ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--nav-bg);
+        padding: 1rem;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    nav ul.active {
+        display: flex;
+    }
+    
+    nav ul li a {
+        padding: 0.75rem;
+        display: block;
+    }
+}
+
 /* Main Content */
 main {
     margin-top: 80px;
@@ -310,40 +370,6 @@ footer {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .nav-container {
-        flex-direction: column;
-        gap: var(--spacing-md);
-    }
-
-    nav {
-        padding: var(--spacing-sm);
-    }
-
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-    .logo-text {
-        margin-bottom: var(--spacing-sm);
-    }
-
-    .hero-section h1 {
-        font-size: 2rem;
-    }
-
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .modern-form {
-        padding: var(--spacing-md);
-    }
 }
 
 /* Dark Mode Toggle Button */
@@ -555,6 +581,20 @@ footer {
     box-shadow: var(--hover-shadow);
 }
 
+.task-card.completed {
+    opacity: 0.7;
+    background-color: var(--secondary-color);
+}
+
+.task-card.completed .task-header h3 {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+}
+
+.task-card.completed .task-details {
+    opacity: 0.8;
+}
+
 .task-header {
     display: flex;
     justify-content: space-between;
@@ -626,7 +666,7 @@ footer {
 }
 
 .complete-btn:hover {
-    background-color: var(--primary-hover);
+    background-color: var(--primary-light);
 }
 
 .delete-btn {
@@ -637,15 +677,6 @@ footer {
 
 .delete-btn:hover {
     background-color: var(--hover-bg);
-}
-
-/* Completed task style */
-.task-card.completed {
-    opacity: 0.7;
-}
-
-.task-card.completed .task-header h3 {
-    text-decoration: line-through;
 }
 
 /* Calendar Styles */

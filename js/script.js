@@ -135,6 +135,29 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
+        // Add event listeners for the buttons
+        const completeBtn = taskCard.querySelector('.complete-btn');
+        const deleteBtn = taskCard.querySelector('.delete-btn');
+
+        completeBtn.addEventListener('click', () => {
+            taskCard.classList.toggle('completed');
+            const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            const taskIndex = tasks.findIndex(t => t.id === task.id);
+            if (taskIndex !== -1) {
+                tasks[taskIndex].completed = !tasks[taskIndex].completed;
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+            }
+        });
+
+        deleteBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to delete this task?')) {
+                taskCard.remove();
+                const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+                const updatedTasks = tasks.filter(t => t.id !== task.id);
+                localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+            }
+        });
+
         taskList.appendChild(taskCard);
     }
 
@@ -429,25 +452,32 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Account created successfully!');
     });
 
-    // Sign out functionality
-    function signOut() {
-        localStorage.removeItem('isSignedIn');
-        localStorage.removeItem('currentUser');
-        signInModal.classList.add('visible');
-    }
+    // Mobile Menu Toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('nav ul');
+    
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        menuToggle.setAttribute('aria-expanded', 
+            menuToggle.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'
+        );
+    });
 
-    // Add sign out button to navigation if user is signed in
-    if (isSignedIn) {
-        const nav = document.querySelector('nav ul');
-        const signOutLi = document.createElement('li');
-        signOutLi.innerHTML = '<a href="#" id="signOut">Sign Out</a>';
-        nav.appendChild(signOutLi);
-        
-        document.getElementById('signOut').addEventListener('click', (e) => {
-            e.preventDefault();
-            signOut();
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('nav') && navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // Close mobile menu when clicking a nav link
+    document.querySelectorAll('nav ul li a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
         });
-    }
+    });
 });
 
 // Function to show sections dynamically
