@@ -1,5 +1,7 @@
 // DOM Elements
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing notes functionality...');
+    
     // Dark Mode Toggle
     const themeToggle = document.querySelector('.theme-toggle');
     const htmlElement = document.documentElement;
@@ -477,6 +479,173 @@ document.addEventListener('DOMContentLoaded', () => {
             navMenu.classList.remove('active');
             menuToggle.setAttribute('aria-expanded', 'false');
         });
+    });
+
+    // Notes Functionality
+    console.log('Initializing notes functionality...');
+    const noteFormContainer = document.getElementById('noteFormContainer');
+    const showNoteFormBtn = document.getElementById('showNoteForm');
+    const closeNoteFormBtn = document.getElementById('closeNoteForm');
+    const cancelNoteBtn = document.getElementById('cancelNote');
+    const noteForm = document.getElementById('noteForm');
+    const noteList = document.getElementById('noteList');
+    const noteSearch = document.getElementById('noteSearch');
+
+    console.log('Notes elements:', {
+        noteFormContainer,
+        showNoteFormBtn,
+        closeNoteFormBtn,
+        cancelNoteBtn,
+        noteForm,
+        noteList,
+        noteSearch
+    });
+
+    // Show/hide note form
+    showNoteFormBtn.addEventListener('click', () => {
+        console.log('Show note form clicked');
+        noteFormContainer.classList.add('visible');
+    });
+
+    function hideNoteForm() {
+        console.log('Hiding note form');
+        noteFormContainer.classList.remove('visible');
+        noteForm.reset();
+    }
+
+    closeNoteFormBtn.addEventListener('click', hideNoteForm);
+    cancelNoteBtn.addEventListener('click', hideNoteForm);
+
+    // Handle form submission
+    noteForm.addEventListener('submit', (e) => {
+        console.log('Note form submitted');
+        e.preventDefault();
+        
+        const noteData = {
+            id: Date.now(),
+            title: document.getElementById('noteTitle').value,
+            content: document.getElementById('noteContent').value,
+            createdAt: new Date().toISOString()
+        };
+
+        console.log('New note data:', noteData);
+
+        // Save note to localStorage
+        const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+        notes.push(noteData);
+        localStorage.setItem('notes', JSON.stringify(notes));
+
+        // Add note to the UI
+        addNoteToUI(noteData);
+        
+        // Reset and hide form
+        hideNoteForm();
+    });
+
+    function addNoteToUI(note) {
+        const noteCard = document.createElement('div');
+        noteCard.className = 'note-card';
+        noteCard.dataset.id = note.id;
+        
+        noteCard.innerHTML = `
+            <div class="note-header">
+                <h3>${note.title}</h3>
+            </div>
+            <div class="note-content">${note.content}</div>
+            <div class="note-actions">
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+            </div>
+        `;
+
+        const editBtn = noteCard.querySelector('.edit-btn');
+        const deleteBtn = noteCard.querySelector('.delete-btn');
+
+        editBtn.addEventListener('click', () => {
+            // Store the current note ID
+            const noteId = note.id;
+            
+            // Populate form with note data
+            document.getElementById('noteTitle').value = note.title;
+            document.getElementById('noteContent').value = note.content;
+            
+            // Show form
+            noteFormContainer.classList.add('visible');
+            
+            // Remove any existing submit handler
+            const newForm = noteForm.cloneNode(true);
+            noteForm.parentNode.replaceChild(newForm, noteForm);
+            
+            // Add new submit handler
+            newForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Get updated note data
+                const updatedNote = {
+                    id: noteId,
+                    title: document.getElementById('noteTitle').value,
+                    content: document.getElementById('noteContent').value,
+                    createdAt: note.createdAt
+                };
+                
+                // Update localStorage
+                const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+                const noteIndex = notes.findIndex(n => n.id === noteId);
+                if (noteIndex !== -1) {
+                    notes[noteIndex] = updatedNote;
+                    localStorage.setItem('notes', JSON.stringify(notes));
+                }
+                
+                // Update UI
+                noteCard.querySelector('h3').textContent = updatedNote.title;
+                noteCard.querySelector('.note-content').textContent = updatedNote.content;
+                
+                // Reset form and hide
+                hideNoteForm();
+            });
+        });
+
+        deleteBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to delete this note?')) {
+                noteCard.remove();
+                const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+                const updatedNotes = notes.filter(n => n.id !== note.id);
+                localStorage.setItem('notes', JSON.stringify(updatedNotes));
+            }
+        });
+
+        noteList.appendChild(noteCard);
+    }
+
+    // Load notes from localStorage
+    function loadNotes() {
+        const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+        noteList.innerHTML = '';
+        notes.forEach(note => addNoteToUI(note));
+    }
+
+    // Initial load
+    loadNotes();
+
+    // Search functionality
+    function filterNotes() {
+        const searchTerm = noteSearch.value.toLowerCase().trim();
+        
+        const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+        const filteredNotes = notes.filter(note => {
+            return note.title.toLowerCase().includes(searchTerm) ||
+                   note.content.toLowerCase().includes(searchTerm);
+        });
+
+        noteList.innerHTML = '';
+        filteredNotes.forEach(note => addNoteToUI(note));
+    }
+
+    // Add debounce to search to improve performance
+    let searchTimeout;
+    noteSearch.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(filterNotes, 300);
     });
 });
 

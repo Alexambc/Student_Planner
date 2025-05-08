@@ -939,3 +939,134 @@ footer {
         opacity: 1;
     }
 }
+
+/* Notes Section Styles */
+.note-form-container {
+    display: none;
+    background-color: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--card-shadow);
+}
+
+.note-form-container.visible {
+    display: block;
+}
+
+.note-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    align-items: center;
+}
+
+.note-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.note-card {
+    background-color: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.note-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--hover-shadow);
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+.note-header h3 {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.note-category {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.note-category.lecture {
+    background-color: #e0f2fe;
+    color: #0369a1;
+}
+
+.note-category.study {
+    background-color: #f0fdf4;
+    color: #166534;
+}
+
+.note-category.project {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.note-category.other {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.note-subject {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.note-content {
+    margin: var(--spacing-sm) 0;
+    color: var(--text-color);
+    line-height: 1.5;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.note-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.edit-btn,
+.delete-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.edit-btn:hover {
+    background-color: var(--primary-light);
+}
+
+.delete-btn {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.delete-btn:hover {
+    background-color: var(--hover-bg);
+}

@@ -79,7 +79,6 @@
         <ul>
           <li><a href="#" data-section="home" class="active">Home</a></li>
           <li><a href="#" data-section="tasks">Tasks</a></li>
-          <li><a href="#" data-section="exams">Exams</a></li>
           <li><a href="#" data-section="schedule">Schedule</a></li>
           <li><a href="#" data-section="notes">Notes</a></li>
           <li><a href="#" id="signInBtn">Sign In</a></li>
@@ -87,79 +86,6 @@
       </div>
     </nav>
     <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
-  </header>
-  
-  <section id="exams" class="content">
-      <h1>Exams</h1>
-      <p>View your upcoming exams and prepare accordingly.</p>
-  </section>
-  
-  <section id="schedule" class="content">
-      <div class="section-header">
-          <h2>Calendar</h2>
-          <button class="add-button" id="addEventBtn">+ Add Event</button>
-      </div>
-      
-      <div class="calendar-container">
-          <div class="calendar-header">
-              <button id="prevMonth" class="calendar-nav">◀</button>
-              <h3 id="currentMonth">March 2024</h3>
-              <button id="nextMonth" class="calendar-nav">▶</button>
-          </div>
-          
-          <div class="calendar-weekdays">
-              <div>Sun</div>
-              <div>Mon</div>
-              <div>Tue</div>
-              <div>Wed</div>
-              <div>Thu</div>
-              <div>Fri</div>
-              <div>Sat</div>
-          </div>
-          
-          <div id="calendarGrid" class="calendar-grid">
-              <!-- Calendar days will be populated by JavaScript -->
-          </div>
-      </div>
-      
-      <!-- Event Modal -->
-      <div id="eventModal" class="modal">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h3>Add Event</h3>
-                  <button class="close-modal">&times;</button>
-              </div>
-              <form id="eventForm">
-                  <div class="form-group">
-                      <label for="eventTitle">Event Title</label>
-                      <input type="text" id="eventTitle" required>
-                  </div>
-                  <div class="form-group">
-                      <label for="eventDate">Date</label>
-                      <input type="date" id="eventDate" required>
-                  </div>
-                  <div class="form-group">
-                      <label for="eventTime">Time</label>
-                      <input type="time" id="eventTime" required>
-                  </div>
-                  <div class="form-group">
-                      <label for="eventDescription">Description</label>
-                      <textarea id="eventDescription"></textarea>
-                  </div>
-                  <div class="form-actions">
-                      <button type="button" class="cancel-button" id="cancelEvent">Cancel</button>
-                      <button type="submit" class="submit-button">Add Event</button>
-                  </div>
-              </form>
-          </div>
-      </div>
-  </section>
-
-  <section id="notes" class="content">
-      <h1>Notes</h1>
-      <p>Store and organize your study notes.</p>
-  </section>
-
   </header>
 
   <!-- Main Content Area -->
@@ -170,165 +96,203 @@
         <p class="subtitle">Your way to organize your academic life</p>
       </div>
       <div class="features-grid">
-          <div class="feature-card" data-section="tasks">
-              <div class="icon">📝</div>
-              <h3>Tasks</h3>
-              <p>Manage your assignments and to-dos with ease</p>
-          </div>
-          <div class="feature-card" data-section="exams">
-              <div class="icon">📚</div>
-              <h3>Exams</h3>
-              <p>Track your upcoming exams and stay prepared</p>
-          </div>
-          <div class="feature-card" data-section="schedule">
-              <div class="icon">📅</div>
-              <h3>Schedule</h3>
-              <p>Plan your daily classes efficiently</p>
-          </div>
-          <div class="feature-card" data-section="notes">
-              <div class="icon">📓</div>
-              <h3>Notes</h3>
-              <p>Keep your study materials organized and accessible</p>
-          </div>
+        <div class="feature-card" data-section="tasks">
+          <div class="icon">📝</div>
+          <h3>Tasks</h3>
+          <p>Manage your assignments and to-dos with ease</p>
+        </div>
+        <div class="feature-card" data-section="schedule">
+          <div class="icon">📅</div>
+          <h3>Schedule</h3>
+          <p>Plan your daily classes efficiently</p>
+        </div>
+        <div class="feature-card" data-section="notes">
+          <div class="icon">📓</div>
+          <h3>Notes</h3>
+          <p>Keep your study materials organized and accessible</p>
+        </div>
       </div>
-  </section>
+    </section>
 
-  <section id="tasks" class="content">
+    <section id="tasks" class="content">
       <div class="section-header">
-          <h2>Task Manager</h2>
-          <button class="add-button" id="showTaskForm">+ New Task</button>
+        <h2>Task Manager</h2>
+        <button class="add-button" id="showTaskForm">+ New Task</button>
       </div>
       
       <div class="task-form-container" id="taskFormContainer">
-          <form id="taskForm" class="modern-form">
-              <div class="form-header">
-                  <h3>Create New Task</h3>
-                  <button type="button" class="close-button" id="closeTaskForm">×</button>
-              </div>
-              
-              <div class="form-group">
-                  <label for="taskName">Task Title</label>
-                  <input type="text" id="taskName" placeholder="Enter task name" required>
-              </div>
-              
-              <div class="form-row">
-                  <div class="form-group">
-                      <label for="taskDate">Due Date</label>
-                      <input type="date" id="taskDate" required>
-                  </div>
-                  
-                  <div class="form-group">
-                      <label for="taskPriority">Priority</label>
-                      <select id="taskPriority">
-                          <option value="low">Low Priority</option>
-                          <option value="medium">Medium Priority</option>
-                          <option value="high">High Priority</option>
-                      </select>
-                  </div>
-              </div>
-              
-              <div class="form-group">
-                  <label for="taskDescription">Description</label>
-                  <textarea id="taskDescription" placeholder="Add details about your task..."></textarea>
-              </div>
-              
-              <div class="form-group">
-                  <label for="taskCategory">Category</label>
-                  <select id="taskCategory">
-                      <option value="assignment">Assignment</option>
-                      <option value="project">Project</option>
-                      <option value="study">Study</option>
-                      <option value="other">Other</option>
-                  </select>
-              </div>
-              
-              <div class="form-actions">
-                  <button type="button" class="cancel-button" id="cancelTask">Cancel</button>
-                  <button type="submit" class="submit-button">Add Task</button>
-              </div>
-          </form>
+        <form id="taskForm" class="modern-form">
+          <div class="form-header">
+            <h3>Create New Task</h3>
+            <button type="button" class="close-button" id="closeTaskForm">×</button>
+          </div>
+          
+          <div class="form-group">
+            <label for="taskName">Task Title</label>
+            <input type="text" id="taskName" placeholder="Enter task name" required>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="taskDate">Due Date</label>
+              <input type="date" id="taskDate" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="taskPriority">Priority</label>
+              <select id="taskPriority">
+                <option value="low">Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="taskDescription">Description</label>
+            <textarea id="taskDescription" placeholder="Add details about your task..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="taskCategory">Category</label>
+            <select id="taskCategory">
+              <option value="assignment">Assignment</option>
+              <option value="project">Project</option>
+              <option value="study">Study</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="cancel-button" id="cancelTask">Cancel</button>
+            <button type="submit" class="submit-button">Add Task</button>
+          </div>
+        </form>
       </div>
       
       <div class="task-filters">
-          <div class="search-box">
-              <input type="text" id="taskSearch" placeholder="Search tasks...">
-          </div>
-          <div class="filter-options">
-              <select id="filterPriority">
-                  <option value="all">All Priorities</option>
-                  <option value="high">High Priority</option>
-                  <option value="medium">Medium Priority</option>
-                  <option value="low">Low Priority</option>
-              </select>
-              <select id="filterCategory">
-                  <option value="all">All Categories</option>
-                  <option value="assignment">Assignments</option>
-                  <option value="project">Projects</option>
-                  <option value="study">Study</option>
-                  <option value="other">Other</option>
-              </select>
-          </div>
+        <div class="search-box">
+          <input type="text" id="taskSearch" placeholder="Search tasks...">
+        </div>
+        <div class="filter-options">
+          <select id="filterPriority">
+            <option value="all">All Priorities</option>
+            <option value="high">High Priority</option>
+            <option value="medium">Medium Priority</option>
+            <option value="low">Low Priority</option>
+          </select>
+          <select id="filterCategory">
+            <option value="all">All Categories</option>
+            <option value="assignment">Assignments</option>
+            <option value="project">Projects</option>
+            <option value="study">Study</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
       </div>
       
       <div id="taskList" class="task-grid"></div>
-  </section>
+    </section>
 
-  <section id="exams" class="content">
+    <section id="notes" class="content">
       <div class="section-header">
-          <h2>Exam Schedule</h2>
-          <button class="add-button">+ Add Exam</button>
+        <h2>Notes Manager</h2>
+        <button class="add-button" id="showNoteForm">+ New Note</button>
       </div>
-      <div class="exam-calendar">
-          <div class="calendar-header">
-              <button class="calendar-nav">◀</button>
-              <h3>March 2024</h3>
-              <button class="calendar-nav">▶</button>
+      
+      <div class="note-form-container" id="noteFormContainer">
+        <form id="noteForm" class="modern-form">
+          <div class="form-header">
+            <h3>Create New Note</h3>
+            <button type="button" class="close-button" id="closeNoteForm">×</button>
           </div>
-          <div class="calendar-grid">
-              <!-- Calendar will be populated by JavaScript -->
+          
+          <div class="form-group">
+            <label for="noteTitle">Note Title</label>
+            <input type="text" id="noteTitle" placeholder="Enter note title" required>
           </div>
+          
+          <div class="form-group">
+            <label for="noteContent">Content</label>
+            <textarea id="noteContent" placeholder="Write your notes here..." rows="10"></textarea>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="cancel-button" id="cancelNote">Cancel</button>
+            <button type="submit" class="submit-button">Save Note</button>
+          </div>
+        </form>
       </div>
-  </section>
-  
-  <section id="schedule" class="content">
-      <div class="section-header">
-          <h2>Class Schedule</h2>
-          <button class="add-button">+ Add Class</button>
+      
+      <div class="note-filters">
+        <div class="search-box">
+          <input type="text" id="noteSearch" placeholder="Search notes...">
+        </div>
       </div>
-      <div class="schedule-container">
-          <div class="schedule-sidebar">
-              <h3>Your Classes</h3>
-              <ul class="class-list">
-                  <!-- Class list will be populated by JavaScript -->
-              </ul>
-          </div>
-          <div class="schedule-grid">
-              <!-- Schedule grid will be populated by JavaScript -->
-          </div>
-      </div>
-  </section>
+      
+      <div id="noteList" class="note-grid"></div>
+    </section>
 
-  <section id="notes" class="content">
+    <section id="schedule" class="content">
       <div class="section-header">
-          <h2>Study Notes</h2>
-          <button class="add-button">+ New Note</button>
+        <h2>Calendar</h2>
+        <button class="add-button" id="addEventBtn">+ Add Event</button>
       </div>
-      <div class="notes-container">
-          <div class="notes-sidebar">
-              <div class="search-box">
-                  <input type="text" placeholder="Search notes...">
-              </div>
-              <div id="notesList">
-                  <!-- Notes list will be populated by JavaScript -->
-              </div>
-          </div>
-          <div class="notes-editor">
-              <input type="text" id="noteTitle" placeholder="Note Title">
-              <textarea id="noteContent" placeholder="Start typing your notes here..."></textarea>
-          </div>
+      
+      <div class="calendar-container">
+        <div class="calendar-header">
+          <button id="prevMonth" class="calendar-nav">◀</button>
+          <h3 id="currentMonth">March 2024</h3>
+          <button id="nextMonth" class="calendar-nav">▶</button>
+        </div>
+        
+        <div class="calendar-weekdays">
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+        </div>
+        
+        <div id="calendarGrid" class="calendar-grid">
+          <!-- Calendar days will be populated by JavaScript -->
+        </div>
       </div>
-  </section>
-
+      
+      <!-- Event Modal -->
+      <div id="eventModal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>Add Event</h3>
+            <button class="close-modal">&times;</button>
+          </div>
+          <form id="eventForm">
+            <div class="form-group">
+              <label for="eventTitle">Event Title</label>
+              <input type="text" id="eventTitle" required>
+            </div>
+            <div class="form-group">
+              <label for="eventDate">Date</label>
+              <input type="date" id="eventDate" required>
+            </div>
+            <div class="form-group">
+              <label for="eventTime">Time</label>
+              <input type="time" id="eventTime" required>
+            </div>
+            <div class="form-group">
+              <label for="eventDescription">Description</label>
+              <textarea id="eventDescription"></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="cancel-button" id="cancelEvent">Cancel</button>
+              <button type="submit" class="submit-button">Add Event</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Footer (Copyright/Social Links) -->
@@ -337,4 +301,3 @@
   </footer>
 </body>
 </html>
-
